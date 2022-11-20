@@ -1,0 +1,129 @@
+html,
+body {
+    max-height: 100%;
+    height: 100%;
+
+    text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    touch-action: manipulation;
+}
+
+body {
+    font-family: sans-serif;
+    margin: 0;
+    overflow: hidden;
+}
+
+h1 {
+    text-align: center;
+}
+
+button:hover {
+    background: dodgerblue;
+    cursor: pointer;
+}
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #f4f4f4;
+    position: fixed;
+    padding: 0;
+    height: 100%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+    animation-name: modalopen;
+    animation-duration: 0.5s;
+}
+
+@keyframes modalopen {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}
+
+.modal-header {
+    background: lightblue;
+    margin: 0;
+    padding: 3px 15px;
+    text-align: center;
+}
+
+.modal-body {
+    overflow-y: scroll;
+    height: 50%;
+    color: black;
+    text-align: center;
+}
+
+.modal-content {
+    top: 15%;
+    left: 5%;
+    height: 70%;
+    width: 90%;
+}
+
+input {
+    background-color: lightgray;
+}
+
+button{
+    padding: 10px 15px;
+    border: none;
+    font-size: 16px;
+    color: black;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: lightblue;
+}
+
+div[id=header]{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: lightgreen;
+}
+
+#map {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+@media screen and (max-width: 640px) {
+    h1 {
+        font-size: 24px;
+        margin: 12px;
+    }
+}
+
+@media screen and (max-width:350px) {
+    h1 {
+        font-size: 20px;
+        margin: 10px;
+    }
+    button {
+        padding: 5px 8px;
+    }
+    button[id=battle]{
+        padding: 3px 5px;
+        font-size: 14px;
+    }
+}
