@@ -12,15 +12,15 @@ const inputLng = document.getElementById('inputLng');
 
 const resultMessage = document.getElementById('resultMessage');
 
-let gameMode;
-let map;
-let marker;
-let ansLat;
-let ansLng;
-let myLat;
-let myLng;
-let resultLat;
-let resultLng;
+var gameMode;
+var map;
+var marker;
+var ansLat;
+var ansLng;
+var myLat;
+var myLng;
+var resultLat;
+var resultLng;
 
 document.body.addEventListener('touchmove', (e) => {
     if (e.touches.length > 1) {
@@ -38,8 +38,8 @@ window.onload = function () {
 
 $(function () {
     function initMap() {
-        let pos = { lat: 0, lng: 0 };
-        let opts = {
+        var pos = { lat: 0, lng: 0 };
+        var opts = {
             zoom: 4,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             center: new google.maps.LatLng(pos),
@@ -99,18 +99,18 @@ function startGame(){
 
 function generateLat(){
     if(Math.round(Math.random()) == 0){
-        let randomLat = Math.round(Math.random() * 90);
+        var randomLat = Math.round(Math.random() * 90);
     }else{
-        let randomLat = Math.round(Math.random() * 90) * -1;
+        var randomLat = Math.round(Math.random() * 90) * -1;
     }
     return randomLat;
 }
 
 function generateLng(){
     if(Math.round(Math.random()) == 0){
-        let randomLng = Math.round(Math.random() * 180);
+        var randomLng = Math.round(Math.random() * 180);
     }else{
-        let randomLng = Math.round(Math.random() * 180) * -1;
+        var randomLng = Math.round(Math.random() * 180) * -1;
     }
     return randomLng;
 }
@@ -139,7 +139,7 @@ function inputCheckLng(){
 
 function createMarker(lat, lng){
     marker.setPosition(null);
-    let markerLatLng = new google.maps.LatLng(lat,lng);
+    var markerLatLng = new google.maps.LatLng(lat,lng);
     marker = new google.maps.Marker({
         position: markerLatLng,
         map: map
@@ -154,7 +154,7 @@ function toResult(){
 }
 
 function differenceLat(aLat,mLat){
-    let rLat = aLat - mLat;
+    var rLat = aLat - mLat;
     if(rLat < 0){
         rLat *= -1;
     }
@@ -163,19 +163,19 @@ function differenceLat(aLat,mLat){
 
 function differenceLng(aLng,mLng){
     if((aLng < 0 && mLng < 0) || (aLng > 0 && mLng > 0) || aLng == 0 || mLng == 0){
-        let rLng = aLng - mLng;
+        var rLng = aLng - mLng;
     }else{
         if(aLng < 0){
-            let lng0 = mLng - aLng;
-            let lng180 = (180 - mLng) - (-180 - aLng);
+            var lng0 = mLng - aLng;
+            var lng180 = (180 - mLng) - (-180 - aLng);
         }else{
-            let lng0 = aLng - mLng;
-            let lng180 = (180 - aLng) - (-180 - mLng);
+            var lng0 = aLng - mLng;
+            var lng180 = (180 - aLng) - (-180 - mLng);
         }
         if(lng0 < lng180){
-            let rLng = lng0;
+            var rLng = lng0;
         }else{
-            let rLng = lng180;
+            var rLng = lng180;
         }
     }
     if(rLng < 0){
@@ -195,7 +195,7 @@ function postToTwitter(){
 }
 
 function copyToClipboard() {
-    let text = '私のスコアは\n緯度:' + resultLat + '度\n経度:' + resultLng + '度\nの差でした！\n\n下記URLから緯度経度当てゲームに挑戦！\nhttps://locagame.sunset0916.net';
+    var text = '私のスコアは\n緯度:' + resultLat + '度\n経度:' + resultLng + '度\nの差でした！\n\n下記URLから緯度経度当てゲームに挑戦！\nhttps://locagame.sunset0916.net';
     const textarea = document.createElement('textarea');
     textarea.style.position = 'fixed';
     textarea.style.opacity = 0;
