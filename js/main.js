@@ -12,15 +12,15 @@ const inputLng = document.getElementById('inputLng');
 
 const resultMessage = document.getElementById('resultMessage');
 
-var gameMode;
-var map;
-var marker;
-var ansLat;
-var ansLng;
-var myLat;
-var myLng;
-var resultLat;
-var resultLng;
+let gameMode;
+let map;
+let marker;
+let ansLat;
+let ansLng;
+let myLat;
+let myLng;
+let resultLat;
+let resultLng;
 
 document.body.addEventListener('touchmove', (e) => {
     if (e.touches.length > 1) {
@@ -38,8 +38,8 @@ window.onload = function () {
 
 $(function () {
     function initMap() {
-        var pos = { lat: 0, lng: 0 };
-        var opts = {
+        const pos = { lat: 0, lng: 0 };
+        const opts = {
             zoom: 4,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             center: new google.maps.LatLng(pos),
@@ -109,7 +109,7 @@ function generateLng(){
     if(Math.round(Math.random()) == 0){
         return Math.round(Math.random() * 180);
     }else{
-        return randomLng = Math.round(Math.random() * 180) * -1;
+        return Math.round(Math.random() * 180) * -1;
     }
 }
 
@@ -137,7 +137,7 @@ function inputCheckLng(){
 
 function createMarker(lat, lng){
     marker.setPosition(null);
-    var markerLatLng = new google.maps.LatLng(lat,lng);
+    const markerLatLng = new google.maps.LatLng(lat,lng);
     marker = new google.maps.Marker({
         position: markerLatLng,
         map: map
@@ -152,7 +152,7 @@ function toResult(){
 }
 
 function differenceLat(aLat,mLat){
-    var rLat = aLat - mLat;
+    let rLat = aLat - mLat;
     if(rLat < 0){
         rLat *= -1;
     }
@@ -160,20 +160,23 @@ function differenceLat(aLat,mLat){
 }
 
 function differenceLng(aLng,mLng){
+    let rLng;
     if((aLng < 0 && mLng < 0) || (aLng > 0 && mLng > 0) || aLng == 0 || mLng == 0){
-        var rLng = aLng - mLng;
+        rLng = aLng - mLng;
     }else{
+        let lng0;
+        let lng180;
         if(aLng < 0){
-            var lng0 = mLng - aLng;
-            var lng180 = (180 - mLng) - (-180 - aLng);
+            lng0 = mLng - aLng;
+            lng180 = (180 - mLng) - (-180 - aLng);
         }else{
-            var lng0 = aLng - mLng;
-            var lng180 = (180 - aLng) - (-180 - mLng);
+            lng0 = aLng - mLng;
+            lng180 = (180 - aLng) - (-180 - mLng);
         }
         if(lng0 < lng180){
-            var rLng = lng0;
+            rLng = lng0;
         }else{
-            var rLng = lng180;
+            rLng = lng180;
         }
     }
     if(rLng < 0){
@@ -189,11 +192,11 @@ function retryGame(){
 
 function postToTwitter(){
     const shareUrl = 'https://twitter.com/share?url=https://locagame.sunset0916.net&text=私のスコアは%20%0a緯度:' + resultLat + '度%20%0a経度:' + resultLng + '度%20%0aの差でした！%20%0a%20%0a下記URLから緯度経度当てゲームに挑戦！%20%0a';
-    window.open(new URL(shareUrl));
+    window.open(shareUrl);
 }
 
 function copyToClipboard() {
-    var text = '私のスコアは\n緯度:' + resultLat + '度\n経度:' + resultLng + '度\nの差でした！\n\n下記URLから緯度経度当てゲームに挑戦！\nhttps://locagame.sunset0916.net';
+    const text = '私のスコアは\n緯度:' + resultLat + '度\n経度:' + resultLng + '度\nの差でした！\n\n下記URLから緯度経度当てゲームに挑戦！\nhttps://locagame.sunset0916.net';
     const textarea = document.createElement('textarea');
     textarea.style.position = 'fixed';
     textarea.style.opacity = 0;
@@ -205,15 +208,15 @@ function copyToClipboard() {
 }
 
 $(document).ready(function () {
-    hsize = $(window).height();
-    headerSize = $('#gameMode0').height();
-    $('#header').css("height", headerSize + "px");
-    $('#map').css("height", (hsize - headerSize) - 10 + "px");
+    const hsize = $(window).height();
+    const headerSize = $('#gameMode0').height();
+    $('#header').css('height', headerSize + 'px');
+    $('#map').css('height', (hsize - headerSize) - 10 + 'px');
 });
 
 $(window).resize(function () {
-    hsize = $(window).height();
-    headerSize = $('#gameMode0').height();
-    $('#header').css("height", headerSize + "px");
-    $('#map').css("height", (hsize - headerSize) - 10 + "px");
+    const hsize = $(window).height();
+    const headerSize = $('#gameMode0').height();
+    $('#header').css('height', headerSize + 'px');
+    $('#map').css('height', (hsize - headerSize) - 10 + 'px');
 });
