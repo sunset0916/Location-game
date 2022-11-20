@@ -99,20 +99,18 @@ function startGame(){
 
 function generateLat(){
     if(Math.round(Math.random()) == 0){
-        var randomLat = Math.round(Math.random() * 90);
+        return Math.round(Math.random() * 90);
     }else{
-        var randomLat = Math.round(Math.random() * 90) * -1;
+        return Math.round(Math.random() * 90) * -1;
     }
-    return randomLat;
 }
 
 function generateLng(){
     if(Math.round(Math.random()) == 0){
-        var randomLng = Math.round(Math.random() * 180);
+        return Math.round(Math.random() * 180);
     }else{
-        var randomLng = Math.round(Math.random() * 180) * -1;
+        return randomLng = Math.round(Math.random() * 180) * -1;
     }
-    return randomLng;
 }
 
 function inputCheckLat(){
