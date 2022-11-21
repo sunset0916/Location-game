@@ -139,7 +139,7 @@ function createMarker(lat, lng){
 function toResult(){
     resultLat = differenceLat(ansLat,myLat);
     resultLng = differenceLng(ansLng,myLng);
-    resultMessage.textContent = '緯度' + resultLat + '度、経度' + resultLng + 'の差でした！'
+    resultMessage.textContent = '緯度' + resultLat + '度、経度' + resultLng + '度の差でした！';
     modalResult.style.display = 'block';
 }
 
