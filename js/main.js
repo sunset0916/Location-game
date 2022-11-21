@@ -28,14 +28,6 @@ document.body.addEventListener('touchmove', (e) => {
     }
 }, { passive: false });
 
-window.onload = function () {
-    function disableScroll(event) {
-        event.preventDefault();
-    }
-    document.addEventListener('touchmove', disableScroll, { passive: false });
-    document.addEventListener('mousewheel', disableScroll, { passive: false });
-}
-
 $(function () {
     function initMap() {
         const pos = { lat: 0, lng: 0 };
@@ -129,7 +121,7 @@ function inputCheckLng(){
         inputLng.value = 0;
     }else if(inputLng.value < -180){
         inputLng.value = -180;
-    }else if(inputLat.value > 180){
+    }else if(inputLng.value > 180){
         inputLng.value = 180;
     }
     myLng = inputLng.value;
@@ -210,13 +202,19 @@ function copyToClipboard() {
 $(document).ready(function () {
     const hsize = $(window).height();
     const headerSize = $('#gameMode0').height();
+    const modalSize = hsize * 0.7;
+    const modalHeaderSize = $('#modal-header').height() + 6;
     $('#header').css('height', headerSize + 'px');
     $('#map').css('height', (hsize - headerSize) - 10 + 'px');
+    $('#modal-body').css('height', modalSize - modalHeaderSize + 'px');
 });
 
 $(window).resize(function () {
     const hsize = $(window).height();
     const headerSize = $('#gameMode0').height();
+    const modalSize = hsize * 0.7;
+    const modalHeaderSize = $('#modal-header').height() + 6;
     $('#header').css('height', headerSize + 'px');
     $('#map').css('height', (hsize - headerSize) - 10 + 'px');
+    $('#modal-body').css('height', modalSize - modalHeaderSize + 'px');
 });
