@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div id="header" style="text-align: center; padding: 5px;">
+    <div id="header">
         <div id="gameMode0">
             <span>位置→緯度経度</span>
             <span>緯度</span><input type="number" name="inputLat" min="-90" max="90" value="0" pattern="\d*" id="inputLat" onblur="inputCheckLat()">
@@ -30,10 +30,10 @@
 
     <div id="gameStartModal" class="modal">
         <div class="modal-content">
-            <div id="modal-header" class="modal-header">
+            <div id="modal-header-s" class="modal-header">
                 <h1>ゲームモードの選択</h1>
             </div>
-            <div id="modal-body" class="modal-body">
+            <div id="modal-body-s" class="modal-body">
                 <p><input type="radio" name="gameMode" value="0" id="radio1" checked><label for="radio1">位置から緯度経度を当てる</label></p>
                 <p><input type="radio" name="gameMode" value="1" id="radio2"><label for="radio2">緯度経度から位置を当てる</label></p>
                 <p>注：このゲームでは西経と南緯はマイナス表記になります。</p>
@@ -44,10 +44,10 @@
 
     <div id="resultModal" class="modal" style="display: none;">
         <div class="modal-content">
-            <div id="modal-header" class="modal-header">
+            <div id="modal-header-r" class="modal-header">
                 <h1>結果発表！</h1>
             </div>
-            <div id="modal-body" class="modal-body">
+            <div id="modal-body-r" class="modal-body">
                 <p id="resultMessage">緯度〇〇、経度〇〇の差でした！</p>
                 <p>
                     <button onclick="postToTwitter()">シェア</button>

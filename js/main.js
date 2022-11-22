@@ -66,6 +66,18 @@ $(function () {
     }
 });
 
+function displaySizeChange(){
+    const hsize = $(window).height();
+    const headerSize = $('#gameMode0').height();
+    const modalSize = hsize * 0.7;
+    const modalHeaderSizeS = $('#modal-header-s').height() + 6;
+    const modalHeaderSizeR = $('#modal-header-r').height() + 6;
+    $('#header').css('height', headerSize + 'px');
+    $('#map').css('height', (hsize - headerSize) - 10 + 'px');
+    $('#modal-body-s').css('height', modalSize - modalHeaderSizeS + 'px');
+    $('#modal-body-r').css('height', modalSize - modalHeaderSizeR + 'px');
+}
+
 function startGame(){
     inputLat.value = 0;
     inputLng.value = 0;
@@ -141,6 +153,7 @@ function toResult(){
     resultLng = differenceLng(ansLng,myLng);
     resultMessage.textContent = '緯度' + resultLat + '度、経度' + resultLng + '度の差でした！';
     modalResult.style.display = 'block';
+    displaySizeChange();
 }
 
 function differenceLat(aLat,mLat){
@@ -180,6 +193,7 @@ function differenceLng(aLng,mLng){
 function retryGame(){
     modalResult.style.display = 'none';
     modalGameStart.style.display = 'block';
+    displaySizeChange();
 }
 
 function postToTwitter(){
@@ -200,21 +214,9 @@ function copyToClipboard() {
 }
 
 $(document).ready(function () {
-    const hsize = $(window).height();
-    const headerSize = $('#gameMode0').height();
-    const modalSize = hsize * 0.7;
-    const modalHeaderSize = $('#modal-header').height() + 6;
-    $('#header').css('height', headerSize + 'px');
-    $('#map').css('height', (hsize - headerSize) - 10 + 'px');
-    $('#modal-body').css('height', modalSize - modalHeaderSize + 'px');
+    displaySizeChange();
 });
 
 $(window).resize(function () {
-    const hsize = $(window).height();
-    const headerSize = $('#gameMode0').height();
-    const modalSize = hsize * 0.7;
-    const modalHeaderSize = $('#modal-header').height() + 6;
-    $('#header').css('height', headerSize + 'px');
-    $('#map').css('height', (hsize - headerSize) - 10 + 'px');
-    $('#modal-body').css('height', modalSize - modalHeaderSize + 'px');
+    displaySizeChange();
 });
