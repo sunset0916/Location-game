@@ -82,7 +82,7 @@ button{
     color: black;
     border-radius: 8px;
     cursor: pointer;
-    background-color: lightblue;
+    background-color: lightskyblue;
 }
 
 div[id=header]{
@@ -90,7 +90,7 @@ div[id=header]{
     margin: 0;
     text-align: center; 
     padding: 5px;
-    background-color: lightgreen;
+    background-color: lightblue;
 }
 
 #map {
