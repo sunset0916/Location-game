@@ -1,8 +1,8 @@
 const modalGameStart = document.getElementById('gameStartModal');
 const modalResult = document.getElementById('resultModal');
 
-const header0 = document.getElementById('gameMode0');
-const header1 = document.getElementById('gameMode1');
+const headerPlaceToLatLng = document.getElementById('headerPlaceToLatLng');
+const headerLatLngToPlace = document.getElementById('headerLatLngToPlace');
 
 const messageLat = document.getElementById('messageLat');
 const messageLng = document.getElementById('messageLng');
@@ -12,7 +12,9 @@ const inputLng = document.getElementById('inputLng');
 
 const resultMessage = document.getElementById('resultMessage');
 
-let gameMode;
+const radioButton = document.getElementsByName('gameMode');
+
+let gameMode = 0;
 let map;
 let marker;
 let ansLat;
@@ -28,54 +30,57 @@ document.body.addEventListener('touchmove', (e) => {
     }
 }, { passive: false });
 
-$(function () {
-    function initMap() {
-        const pos = { lat: 0, lng: 0 };
-        const opts = {
-            zoom: 4,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            center: new google.maps.LatLng(pos),
-            keyboardShortcuts: false,
-            gestureHandling: "greedy",
-            clickableIcons: false,
-            zoomControl: false,
-            mapTypeControl: false,
-            scaleControl: true,
-            streetViewControl: false,
-            rotateControl: false,
-            fullscreenControl: false
-        };
-        map = new google.maps.Map(document.getElementById("map"), opts);
-    }
+function initMap() {
+    const pos = { lat: 0, lng: 0 };
+    const opts = {
+        zoom: 4,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: new google.maps.LatLng(pos),
+        keyboardShortcuts: false,
+        gestureHandling: "greedy",
+        clickableIcons: false,
+        zoomControl: false,
+        mapTypeControl: false,
+        scaleControl: true,
+        streetViewControl: false,
+        rotateControl: false,
+        fullscreenControl: false
+    };
+    map = new google.maps.Map(document.getElementById("map"), opts);
+}
 
-    initMap();
+initMap();
 
-    marker = new google.maps.Marker({
-        position: new google.maps.LatLng(0,0),
-        map: map
-    });
-
-    google.maps.event.addListener(map, 'click', mapListener);
-
-    function mapListener(event){
-        if(gameMode == 1){
-            myLat = Math.round(event.latLng.lat());
-            myLng = Math.round(event.latLng.lng());
-            marker.setPosition(new google.maps.LatLng(myLat,myLng));
-        }
-    }
+marker = new google.maps.Marker({
+    position: new google.maps.LatLng(0,0),
+    map: map
 });
 
+google.maps.event.addListener(map, 'click', mapListener);
+
+function mapListener(event){
+    if(gameMode == 1){
+        myLat = Math.round(event.latLng.lat());
+        myLng = Math.round(event.latLng.lng());
+        marker.setPosition(new google.maps.LatLng(myLat,myLng));
+    }
+}
+
 function displaySizeChange(){
-    const hsize = $(window).height();
-    const headerSize = $('#gameMode0').height();
+    const hsize = document.body.clientHeight;
     const modalSize = hsize * 0.7;
-    const modalHeaderSizeS = $('#modal-header-s').height() + 6;
-    const modalHeaderSizeR = $('#modal-header-r').height() + 6;
-    $('#header').css('height', headerSize + 'px');
-    $('#map').css('height', (hsize - headerSize) - 10 + 'px');
-    $('#modal-body-s').css('height', modalSize - modalHeaderSizeS + 'px');
-    $('#modal-body-r').css('height', modalSize - modalHeaderSizeR + 'px');
+    const modalHeaderSizeS = document.getElementById('modal-header-s').clientHeight;
+    const modalHeaderSizeR = document.getElementById('modal-header-r').clientHeight;
+    let headerSize;
+    if(gameMode == 0){
+        headerSize = headerPlaceToLatLng.clientHeight;
+    }else{
+        headerSize = headerLatLngToPlace.clientHeight;
+    }
+    document.getElementById('header').style.height = headerSize + 'px';
+    document.getElementById('map').style.height = (hsize - headerSize) - 10 + 'px';
+    document.getElementById('modal-body-s').style.height = modalSize - modalHeaderSizeS + 'px';
+    document.getElementById('modal-body-r').style.height = modalSize - modalHeaderSizeR + 'px';
 }
 
 function startGame(){
@@ -85,17 +90,22 @@ function startGame(){
     ansLng = generateLng();
     myLat = 0;
     myLng = 0;
-    gameMode = $('input[name=gameMode]:checked').val();
+    for(let i = 0; i < radioButton.length; i++){
+        if(radioButton.item(i).checked){
+            gameMode = radioButton.item(i).value;
+        }
+    }
     if(gameMode == 0){
-        header1.style.display = 'none';
-        header0.style.display = 'block';
+        headerLatLngToPlace.style.display = 'none';
+        headerPlaceToLatLng.style.display = 'block';
         map.setCenter(new google.maps.LatLng(ansLat,ansLng));
         createMarker(ansLat,ansLng);
     }else{
-        header0.style.display = 'none';
-        header1.style.display = 'block';
+        headerPlaceToLatLng.style.display = 'none';
+        headerLatLngToPlace.style.display = 'block';
         messageLat.textContent = ansLat;
         messageLng.textContent = ansLng;
+        map.setCenter(new google.maps.LatLng(0,0));
         createMarker(0,0);
     }
     modalGameStart.style.display = 'none';
@@ -203,20 +213,19 @@ function postToTwitter(){
 
 function copyToClipboard() {
     const text = '私のスコアは\n緯度:' + resultLat + '度\n経度:' + resultLng + '度\nの差でした！\n\n下記URLから緯度経度当てゲームに挑戦！\nhttps://locagame.sunset0916.net';
-    const textarea = document.createElement('textarea');
-    textarea.style.position = 'fixed';
-    textarea.style.opacity = 0;
-    textarea.value = text;
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand('Copy');
-    document.body.removeChild(textarea);
+    if(navigator.clipboard){
+        navigator.clipboard.writeText(text);
+    }else{
+        const textarea = document.createElement('textarea');
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = 0;
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('Copy');
+        document.body.removeChild(textarea);
+    }
 }
 
-$(document).ready(function () {
-    displaySizeChange();
-});
-
-$(window).resize(function () {
-    displaySizeChange();
-});
+window.addEventListener('resize', displaySizeChange);
+window.addEventListener('load', displaySizeChange);
