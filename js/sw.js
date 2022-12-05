@@ -1,29 +1,31 @@
-// Cache name
+'use strict';
 const CACHE_NAME = 'location-game-cache';
-// Cache targets
 const urlsToCache = [
-  '../',
-  '../index.html',
-  '../css/main.css',
-  './main.js',
+	"../",
+	"../index.html",
+	"../css/main.css",
+	"./main.js"
 ];
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches
-      .open(CACHE_NAME)
-      .then((cache) => {
-        return cache.addAll(urlsToCache);
-      })
-  );
+self.addEventListener('install', function(event) {
+	event.waitUntil(
+		caches.open(CACHE_NAME).then(function(cache) {
+			return cache.addAll(urlsToCache);
+		})
+	);
 });
 
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches
-      .match(event.request)
-      .then((response) => {
-        return response ? response : fetch(event.request);
-      })
-  );
+self.addEventListener('fetch', function(event) {
+	event.respondWith(async function() {
+		try{
+			var res = await fetch(event.request);
+			var cache = await caches.open(CACHE_NAME);
+			cache.put(event.request.url, res.clone());
+			return res;
+		}
+		catch(error){
+			console.log('Using cache');
+			return caches.match(event.request);
+		}
+	}());
 });
