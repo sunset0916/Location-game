@@ -1,6 +1,7 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "緯度経度当てゲーム",
+    "short_name": "位置当てゲーム",
+    "desctiption": "位置から緯度経度を当てたり緯度経度から位置を当てたりするゲーム",
     "icons": [
         {
             "src": "images/android-chrome-192x192.png",
@@ -15,5 +16,6 @@
     ],
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
-    "display": "standalone"
+    "display": "standalone",
+    "start_url": "https://locagame.sunset0916.net"
 }

@@ -69,6 +69,16 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCp_QXjD8z8Y-N9e42WluAtKfqmph3bEv0"></script>
     <script src="js/main.js"></script>
 
+    <script>
+        if('serviceWorker' in navigator){
+            navigator.serviceWorker.register('js/sw.js').then(registration => {
+                console.log('ServiceWorker registration successful.');
+            }).catch(err => {
+                console.log('ServiceWorker registration failed.');
+            });
+        }
+    </script>
+
 </body>
 
 </html>
