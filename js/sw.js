@@ -2,10 +2,10 @@
 const CACHE_NAME = 'location-game-cache';
 // Cache targets
 const urlsToCache = [
-  './',
-  './index.html',
-  './css/main.css',
-  './js/main.js',
+  '../',
+  '../index.html',
+  '../css/main.css',
+  './main.js',
 ];
 
 self.addEventListener('install', (event) => {
