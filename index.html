@@ -32,8 +32,8 @@
     <div id="header">
         <div id="headerPlaceToLatLng">
             <span>位置→緯度経度</span>
-            <span>緯度</span><input type="number" name="inputLat" min="-90" max="90" value="0" pattern="\d*" id="inputLat" onblur="inputCheckLat()">
-            <span>経度</span><input type="number" name="inputLng" min="-180" max="180" value="0" pattern="\d*" id="inputLng" onblur="inputCheckLng()">
+            <span onclick="invertSignLat()">緯度</span><input type="number" name="inputLat" min="-90" max="90" value="0" pattern="\d*" id="inputLat" onblur="inputCheckLat()">
+            <span onclick="invertSignLng()">経度</span><input type="number" name="inputLng" min="-180" max="180" value="0" pattern="\d*" id="inputLng" onblur="inputCheckLng()">
             <button id="battle" onclick="toResult()">勝負！</button>
         </div>
         <div id="headerLatLngToPlace" style="display: none;">
@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    <div id="map">ここに地図を表示</div>
+    <div id="map">Now Loading...</div>
 
     <div id="gameStartModal" class="modal">
         <div class="modal-content">

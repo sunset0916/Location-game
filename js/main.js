@@ -235,6 +235,16 @@ function inputCheckLng(){
     locationGame.myLng = inputLng.value;
 }
 
+function invertSignLat(){
+    inputLat.value = inputLat.value * -1;
+    locationGame.myLat = inputLat.value;
+}
+
+function invertSignLng(){
+    inputLng.value = inputLng.value * -1;
+    locationGame.myLng = inputLng.value;
+}
+
 function toResult(){
     locationGame.resultGame();
     resultMessage.textContent = '緯度' + locationGame.resultLat + '度、経度' + locationGame.resultLng + '度の差でした！';
