@@ -158,6 +158,24 @@ function mapListener(event){
     }
 }
 
+google.maps.event.addListener(gmaps.map, 'idle', disableLink);
+
+function disableLink(){
+    setTimeout(() => {
+        const a = document.getElementsByTagName("a");
+        for(let i = 0; i < a.length; i++){
+            if(a[i].getAttribute("class") != "link"){
+                a[i].removeAttribute("title");
+                a[i].removeAttribute("target");
+                a[i].removeAttribute("rel");
+                a[i].setAttribute("href", "javascript:void(0)");
+            }
+        }
+    }, 50);
+}
+
+disableLink();
+
 function displaySizeChange(){
     const hsize = document.body.clientHeight;
     const modalSize = hsize * 0.7;
