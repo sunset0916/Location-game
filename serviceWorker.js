@@ -13,7 +13,7 @@ self.addEventListener('fetch', function(event) {
 	event.respondWith(async function() {
 		try{
 			var res = await fetch(event.request);
-			var cache = await caches.open(CACHE_NAME);
+			var cache = await caches.open(CACHE_KEY);
 			cache.put(event.request.url, res.clone());
 			return res;
 		}
@@ -27,7 +27,7 @@ self.addEventListener('fetch', function(event) {
 self.addEventListener('install', function(event) {
 	console.log("ServiceWorker was installed");
 	event.waitUntil(
-		caches.open(CACHE_NAME).then(function(cache) {
+		caches.open(CACHE_KEY).then(function(cache) {
 			console.log("adding cache...");
 			return cache.addAll(CACHE_FILES);
 		})
