@@ -13,16 +13,14 @@ const isTargetFile = function(url) {
     return CACHE_FILES.indexOf(new URL(url).pathname) >= 0;
 };
 
-this.addEventListener('fetch', function(event) {
+self.addEventListener('fetch', function(event) {
     event.respondWith(
         caches.open(CACHE_KEY).then(function(cache) {
             return cache.match(event.request).then(function(response) {
-                // もしキャッシュがあればそれを返す
                 if (response) {
 					console.log("using cache");
 					return response;
 				}
-				// もし無ければネットワークに取得しに行く
 				return fetch(event.request).then(function(response) {
 					if (isTargetFile(event.request.url) && response.ok) {
 						cache.put(event.request, response.clone());
